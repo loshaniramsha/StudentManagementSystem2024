@@ -24,6 +24,8 @@ public class StudentController extends HttpServlet {
         if (!req.getContentType().startsWith("application/json")) {
             resp.setStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
         }
+
+
     /*    BufferedReader reader=req.getReader();
         StringBuilder sb=new StringBuilder();
         var writer=resp.getWriter();
@@ -31,10 +33,20 @@ public class StudentController extends HttpServlet {
         System.out.println(sb);
         writer.write(sb.toString());
         writer.close();*/
+
+
         // JSON mainpulate with parson
         JsonReader reader= Json.createReader(req.getReader());
-        JsonObject jsonObject=reader.readObject();
-        System.out.println(jsonObject.getString("email"));
+        var jArray =reader.readArray();
+        for (int i=0;i<jArray.size();i++){
+            JsonObject jsonObject=jArray.getJsonObject(i);
+            System.out.println(jsonObject.getString("name"));
+
+        }
+
+        /*object*/
+     /*   JsonObject jsonObject=reader.readObject();*/
+     /*   System.out.println(jsonObject.getString("email"));*/
 
     }
 
