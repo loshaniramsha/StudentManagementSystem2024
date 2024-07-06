@@ -14,6 +14,8 @@ import org.example.studentmanagementsystem2024.Dto.StudentDTO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @WebServlet(urlPatterns = "/student")
@@ -29,11 +31,18 @@ public class StudentController extends HttpServlet {
         if (!req.getContentType().startsWith("application/json")) {
             resp.setStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
         }
-        String id= UUID.randomUUID().toString();
+
+       /* String id=UUID.randomUUID().toString();*/
+        Jsonb jsonb= JsonbBuilder.create();
+        List<StudentDTO> studentDTOList=jsonb.fromJson(req.getReader(),new ArrayList<StudentDTO>(){}.getClass().getGenericSuperclass());
+        studentDTOList.forEach(System.out::println);
+
+       /* Jsonb*/
+      /*  String id= UUID.randomUUID().toString();
         Jsonb jsonb= JsonbBuilder.create();
        StudentDTO studentDTO=jsonb.fromJson(req.getReader(),StudentDTO.class);
        studentDTO.setId(id);
-        System.out.println(studentDTO);
+        System.out.println(studentDTO);*/
 
     /*    BufferedReader reader=req.getReader();
         StringBuilder sb=new StringBuilder();
